@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            color:indianred;
+        }
+        .box{
+            font-weight:bolder;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div v-bind:class="{active:isAdd}">hello world</div>
+
+    <div v-bind:class="[{classa:isAdd},classb]">hello Vuw</div>
+
+    <!--<img v-bind:src="sr" alt="">-->
+
+    <div :style="{fontSize: fsize+'px'}">fellow23</div>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            isAdd:true,
+            sr:"https://avatars1.githubusercontent.com/u/38416128?s=460&v=4",
+            classa:"active",
+            classb:"box",
+            fsize:30
+        }
+    });
+
+</script>
+</body>
+</html>

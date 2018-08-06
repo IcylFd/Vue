@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak] {                 /*属性选择器*/
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div v-pre>{{msg}}</div>           <!--原样输出-->
+    <div v-cloak>{{num}}</div>         <!--配合属性选择器使用，display:none; 编译前隐藏（防抖）-->
+    <div v-once>{{num}}</div>          <!--只渲染一次-->
+
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            msg:"hello Vue",
+            num:1
+        }
+    });
+
+</script>
+</body>
+</html>
