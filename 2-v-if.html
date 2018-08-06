@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div v-if="isIF">                           <!--v-if移除dom节点-->
+        isIF
+    </div>
+    <!--<div v-else-if="elseIF">-->
+        <!--elseIF-->
+    <!--</div>-->
+    <!--<div v-else="isElse">-->
+        <!--else-->
+    <!--</div>-->
+
+
+    <div v-show="isShow">                      <!--v-show改变display--><!--频繁改变用v-show-->
+        isShow
+    </div>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            isIF: true,
+            elseIF: false,
+            isElse: true,
+            isShow:true
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .div1{
+        width: 200px;
+        height: 200px;
+        background: salmon;
+    }
+    .div2{
+        width: 100px;
+        height: 100px;
+        background: blueviolet;
+    }
+</style>
+<body>
+<div id="app">
+    <input type="button" v-on:click="test(2,$event)" value="add">
+    <div>{{num}}</div>
+
+
+    <div @click.once="div1" class="div1">
+        <div @click.stop="div2($event)" class="div2"></div>
+    </div>
+
+    <a href="http://www.baidu.com" @click.prevent="aFoo($event)">baidu</a>
+
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            num:0
+        },
+        methods:{
+            test(n,e){
+                this.num+=n;
+                console.log(e);
+            },
+            div1(){
+                console.log("div1");
+            },
+            div2(e){
+                console.log("div2");
+//                e.stopPropagation();    //阻止冒泡
+            },
+            aFoo(e){
+//                e.preventDefault();       //阻止默认行为
+            }
+
+        }
+    });
+
+</script>
+</body>
+</html>

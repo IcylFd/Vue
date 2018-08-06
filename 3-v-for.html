@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(items,index) in arr">{{index}}:{{items}}</li>
+    </ul>
+
+    <ul>
+        <li v-for="(items,key,index) in obj">{{index}}:{{key}}:{{items}}</li>
+    </ul>
+
+    <ul>
+        <li v-for="(items,index) in objArr">
+            <!--{{items.name}}:{{items.age}}:{{items.school}}-->
+            <span v-for="item in items">
+                {{item}}
+            </span>
+        </li>
+    </ul>
+
+    <div>{{sortObj}}</div>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            arr:[1,2,3,4,5,6],
+            num:10,
+            obj:{
+                name:"xiaoming",
+                age:"19",
+                school:"linda"
+            },
+            objArr:[
+                {
+                    name:"xiaohong",
+                    age:"18",
+                    school:"heida"
+                },
+                {
+                    name:"zhangsan",
+                    age:"20",
+                    school:"heida"
+                },
+                {
+                    name:"lisi",
+                    age:"19",
+                    school:"ligong"
+                }
+            ]
+        },
+        computed:{
+            sortObj () {
+                this.objArr.sort(function(a,b){
+                    return a.age - b.age;
+                });
+            }
+        }
+    })
+
+
+//    var obj = {
+//        objArr:[
+//            {
+//                name:"xiaohong",
+//                age:18,
+//                school:"heida"
+//            },
+//            {
+//                name:"zhangsan",
+//                age:20,
+//                school:"heida"
+//            },
+//            {
+//                name:"lisi",
+//                age:19,
+//                school:"ligong"
+//            }
+//        ]
+//    }
+//
+//    obj.objArr.sort(function(a,b){
+//        return b.age - a.age;             //降序b-a 升序a-b
+//    })
+//    console.log(obj)
+</script>
+</body>
+</html>
