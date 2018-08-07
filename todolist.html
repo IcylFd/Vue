@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            outline-style: none;
+        }
+        header{
+            border-bottom:1px solid #e2e2e2;
+            text-align: center;
+            height:80px;
+        }
+        header h1{
+            line-height: 80px;
+        }
+        .searchbox,.inputbox{
+            text-align:center;
+            margin: 10px;
+            font-size: 14px;
+        }
+        .searchbox input,.inputbox input{
+            height:25px;
+            width:150px;
+            border-radius: 5px;
+            border:1px solid #ccc;
+        }
+        .search,.add{
+            width:50px;
+            height:30px;
+            background: #5080da;
+            color:#fff;
+            border-radius: 5px;
+        }
+        table,td{
+            border:1px solid #e2e2e2;
+            text-align: center;
+        }
+        tbody img{
+            width: 20px;
+            height: 20px;
+        }
+
+        #delBtn{
+            background: red;
+            border:none;
+        }
+        tbody .selectColor{
+            background-color: #cbc3e2 !important;
+            color:#fff !important;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <header>
+        <h1>todolist</h1>
+    </header>
+
+    <div class="searchbox">
+        <input type="text" placeholder="请输入关键字" v-model="inputSearch">
+        <button class="search" @click="search">搜索</button>
+    </div>
+    <div class="inputbox">
+        商品名称<input type="text" placeholder="请输入名称" v-model="inputName">
+        商品价格<input type="number" v-model.number="inputPrice">
+        <button class="add" @click="add">增加</button>
+    </div>
+
+    <div class="list">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">选择</th>
+                <th scope="col">商品名称</th>
+                <th scope="col">商品价格</th>
+                <th scope="col">删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item,index) in arr" @click="chooseTr(index)" :class="{selectColor:item.isSelected}">
+                <th scope="row"><input type="checkbox" name="buy" :value="item.name"  v-model="select" @click.stop="choose(index)"></th>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td><img src="alter_delete.png" alt=""  @click.stop="handleDelete(index)"></td>
+            </tr>
+
+            <tr>
+                <th scope="row"><button type="button" class="btn btn-primary btn-sm" id="delBtn" @click="deleteSelect">删除选中</button></th>
+                <td colspan="3">总价：{{CountSumPrice}}元</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            inputName:null,
+            inputPrice:null,
+            inputSearch:null,
+            arr:[
+                {
+                    name:"衣服",
+                    price:230,
+                    isSelected:false
+                },
+                {
+                    name:"帽子",
+                    price:70,
+                    isSelected:false
+                },
+                {
+                    name:"牛仔裤",
+                    price:300,
+                    isSelected:false
+                },
+            ],
+            arr1:[],
+            select:[]
+
+        },
+        methods:{
+            choose(index){
+                this.arr[index].isSelected = !this.arr[index].isSelected;
+            },
+            chooseTr(index){
+                this.arr[index].isSelected = !this.arr[index].isSelected;
+                if(!this.select.includes(this.arr[index].name)){
+                    this.select.push(this.arr[index].name);
+                }else{
+                    rm(this.select,this.arr[index].name);
+                }
+
+            },
+
+
+            handleDelete(index){
+                console.log(index);
+                this.arr.splice(index,1);
+            },
+
+            deleteSelect(){
+                let len = this.arr.length;
+                for(let i = 0; i < this.select.length; i++) {
+                    for(let j = 0; j < len; j++){
+                        if(this.arr[j].name == this.select[i]){
+                            this.select.splice(i,1);
+                            this.arr.splice(j,1);
+                        }
+                    }
+                }
+            },
+
+            add(){
+                this.arr.push({
+                    name:this.inputName,
+                    price:this.inputPrice,
+                    isSelected:false
+                });
+            },
+
+            search(){
+                let arr1 = this.arr;
+                this.arr = this.arr.filter(val => {
+                    console.log(val.name);
+                    if(val.name.includes(this.inputSearch)){
+                        return val;
+                    }
+                });
+
+            }
+        },
+        computed:{
+            CountSumPrice(){
+                let sumPrice = 0;
+                for(let i = 0; i < this.arr.length; i++){
+                    if(this.arr[i].isSelected){
+                        sumPrice += this.arr[i].price;
+                    }
+                }
+            return sumPrice;
+            }
+        }
+    });
+
+    function rm(arr,ele){
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i] == ele){
+                arr.splice(i,1);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
