@@ -82,7 +82,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) in arr" @click="chooseTr(index)" :class="{selectColor:item.isSelected}">
+            <tr v-for="(item,index) in arr" :key="index" @click="chooseTr(index)" :class="{selectColor:item.isSelected}">
                 <th scope="row"><input type="checkbox" name="buy" :value="item.name"  v-model="select" @click.stop="choose(index)"></th>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
@@ -102,6 +102,7 @@
 
 <script src="../vue.js"></script>
 <script>
+    let idnum = 3;
     new Vue({
         el:"#app",
         data:{
@@ -110,16 +111,19 @@
             inputSearch:null,
             arr:[
                 {
+                    id:1,
                     name:"衣服",
                     price:230,
                     isSelected:false
                 },
                 {
+                    id:2,
                     name:"帽子",
                     price:70,
                     isSelected:false
                 },
                 {
+                    id:3,
                     name:"牛仔裤",
                     price:300,
                     isSelected:false
@@ -150,19 +154,26 @@
             },
 
             deleteSelect(){
-                let len = this.arr.length;
                 for(let i = 0; i < this.select.length; i++) {
-                    for(let j = 0; j < len; j++){
+                    for(let j = 0; j < this.arr.length; j++){
                         if(this.arr[j].name == this.select[i]){
                             this.select.splice(i,1);
                             this.arr.splice(j,1);
                         }
+                        console.log(this.arr);
+                        console.log(this.select);
                     }
+
                 }
+
+
+
             },
 
             add(){
+
                 this.arr.push({
+                    id:idnum++,
                     name:this.inputName,
                     price:this.inputPrice,
                     isSelected:false
