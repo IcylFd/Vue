@@ -86,11 +86,11 @@
                 <th scope="row"><input type="checkbox" name="buy" :value="item.name"  v-model="select" @click.stop="choose(index)"></th>
                 <td>{{item.name}}</td>
                 <td>{{item.price}}</td>
-                <td><img src="alter_delete.png" alt=""  @click.stop="handleDelete(index)"></td>
+                <td><img src="alter_delete.png" alt=""  @click.stop="handleDelete(item.id)"></td>
             </tr>
 
             <tr>
-                <th scope="row"><button type="button" class="btn btn-primary btn-sm" id="delBtn" @click="deleteSelect">删除选中</button></th>
+                <th scope="row"><button type="button" class="btn btn-primary btn-sm" id="delBtn" @click="deleteSelect()">删除选中</button></th>
                 <td colspan="3">总价：{{CountSumPrice}}元</td>
             </tr>
             </tbody>
@@ -148,26 +148,20 @@
             },
 
 
-            handleDelete(index){
-                console.log(index);
-                this.arr.splice(index,1);
+            handleDelete(id){
+                this.arr = this.arr.filter((val,index) => {
+                    if(val.id != id){
+                        return val;
+                    }
+                })
             },
 
             deleteSelect(){
-                for(let i = 0; i < this.select.length; i++) {
-                    for(let j = 0; j < this.arr.length; j++){
-                        if(this.arr[j].name == this.select[i]){
-                            this.select.splice(i,1);
-                            this.arr.splice(j,1);
-                        }
-                        console.log(this.arr);
-                        console.log(this.select);
+                this.arr.forEach(item => {
+                    if(item.isSelected){
+                        this.handleDelete(item.id);
                     }
-
-                }
-
-
-
+                })
             },
 
             add(){
