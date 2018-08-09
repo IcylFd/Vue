@@ -17,7 +17,7 @@
     
     inp.onkeyup = function(){
       obj.name = this.value;
-      
+      console.log(obj.name);
     }
 
     Object.defineProperty(obj,"name",{
@@ -26,7 +26,7 @@
         
       },
       set(val){
-        console.log(val)
+        console.log(val);
         box.innerHTML = val;
       }
     })
