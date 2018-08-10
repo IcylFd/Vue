@@ -1,23 +1,23 @@
 <template>
     <div>
-        <div id="nav">
+        <div id="nav" :class="active">
             <header>
                 <a @click="choose(0)">首页</a>
                 <span>{{currentPage}}</span>
             </header>
             <div class="footer">
                 <ul>
-                    <li v-for="(item,index) in footerNav" :key="index" @click="choose(index)"
-                                  :class="[{activeBg:item.isSelected},{activeColor:item.isSelected}]">
+                    <li v-for="(item,index) in footerNav" :key="index+'nl'" @click="choose(index)"
+                                  :class="{activeColor:item.isSelected}">
                         {{item.title}}
                     </li>
                 </ul>
             </div>
         </div>
         <div class="routerbar">
-            <!--<transition name="fade">-->
-            <router-view/>
-            <!--</transition>-->
+            <transition name="fade">
+                <!--<router-view/>-->
+            </transition>
         </div>
     </div>
 </template>
@@ -55,17 +55,17 @@
         color:#2e2e2e;
         flex-grow:1;
     }
-    .active1{
+    .movie header,.movie .footer{
         background: #afa7e2 !important;
     }
-    .active2{
+    .music header,.music .footer{
         background: #E2B9A9 !important;
     }
-    .active3{
+    .book header,.book .footer{
         background: #83A2DA !important;
     }
-    .active4{
-        background: #a8e2bd !important;
+    .photo header,.photo .footer{
+        background: #84bf8e !important;
     }
     .activeColor{
         color:#fff !important;
@@ -76,34 +76,45 @@
 <script>
     export default {
         name: 'Nav',
-        props:['currentPageName'],
+        props:['title'],
+        mounted(){
+            this.$nextTick(function () {
+                this.footerNav.forEach(val => {
+                    if(val.name == this.currentPage) {
+                        this.active = val.name;
+                        this.currentPage = val.title;
+                    }
+                })
+            })
+        },
         data(){
             return{
                currentPage:'电影',
+               active:"movie",
                footerNav:[
                    {
+                       name:"movie",
                        title:'电影',
                        url:'/',
-                       isSelected:true,
-                       activeBg:"active1"
+                       isSelected:true
                    },
                    {
+                       name:"music",
                        title:'音乐',
                        url:'/music',
-                       isSelected:false,
-                       activeBg:"active2"
+                       isSelected:false
                    },
                    {
+                       name:"book",
                        title:'书籍',
                        url:'/book',
-                       isSelected:false,
-                       activeBg:"active3"
+                       isSelected:false
                    },
                    {
+                       name:"photo",
                        title:'图片',
                        url:'/photo',
-                       isSelected:false,
-                       activeBg:"active4"
+                       isSelected:false
                    },
                ]
             }
@@ -117,6 +128,7 @@
                     }
                 }
                 this.currentPage = this.footerNav[index].title;
+                this.active = this.footerNav[index].name;
                 this.$router.push(this.footerNav[index].url);
             }
         }

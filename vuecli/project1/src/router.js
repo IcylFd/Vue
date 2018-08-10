@@ -12,9 +12,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
       {
-        path: '/',
-        name: 'movie',
-        component: Movie
+          path: '/',
+          name: 'movie',
+          component: Movie
       },
       {
           path: '/music',

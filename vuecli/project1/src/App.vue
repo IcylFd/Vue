@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Nav @currentPageName="getPageName"></Nav>
+    <Nav :title="movieName"></Nav>
+    <div class="container">
+      <router-view @routerChange='change'/>
+    </div>
   </div>
 </template>
 
@@ -22,10 +25,14 @@
       components:{
           Nav
       },
+      data(){
+          return{
+              movieName:'movie',
+          }
+      },
       methods:{
-          getPageName(val){
-//              console.log(val);
-              alert(val);
+          change(val){
+              this.movieName = val;
           }
       }
   }
