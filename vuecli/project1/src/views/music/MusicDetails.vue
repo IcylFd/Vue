@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <aplayer v-if="isLoaded" showLrc :music="dataList[0]" :list="dataList" :lrc="musicLrc" :slot="musicLrc[0]"/>
+        <aplayer v-if="isLoaded" showLrc :music="dataList[0]" :list="dataList"/>
     </div>
 </template>
 <style scoped>

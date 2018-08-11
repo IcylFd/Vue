@@ -116,7 +116,7 @@
                 let scrollTop = document.documentElement.scrollTop;
                 let scrollHeigth = document.documentElement.scrollHeight;
                 let clientHeight = document.documentElement.clientHeight;
-                while(scrollHeigth <= scrollTop + clientHeight + 1){
+                if(scrollHeigth <= scrollTop + clientHeight + 1){
                     if(this.isFinish){
                         this.getData();
                     }
