@@ -21,7 +21,7 @@
 
                 </li>
             </ul>
-            <div v-show="!isFinish">
+            <div v-show="!isFinish" class="loading">
                 <img src="../../assets/img/loading.png" alt="">
             </div>
         </div>
