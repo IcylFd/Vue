@@ -8,7 +8,7 @@
             <div class="footer">
                 <ul>
                     <li v-for="(item,index) in footerNav" :key="index+'nl'" @click="choose(index)"
-                                  :class="{activeColor:item.isSelected}">
+                                  :class="{activeColor:active==item.name}">
                         {{item.title}}
                     </li>
                 </ul>
@@ -30,6 +30,7 @@
         position: fixed;
         width:100%;
         line-height:1rem;
+        text-align: center;
     }
     header{
         top:0;
@@ -80,7 +81,7 @@
         mounted(){
             this.$nextTick(function () {
                 this.footerNav.forEach(val => {
-                    if(val.name == this.currentPage) {
+                    if(val.name == this.title) {
                         this.active = val.name;
                         this.currentPage = val.title;
                     }
@@ -95,38 +96,28 @@
                    {
                        name:"movie",
                        title:'电影',
-                       url:'/',
-                       isSelected:true
+                       url:'/'
                    },
                    {
                        name:"music",
                        title:'音乐',
-                       url:'/music',
-                       isSelected:false
+                       url:'/music'
                    },
                    {
                        name:"book",
                        title:'书籍',
-                       url:'/book',
-                       isSelected:false
+                       url:'/book'
                    },
                    {
                        name:"photo",
                        title:'图片',
-                       url:'/photo',
-                       isSelected:false
+                       url:'/photo'
                    },
                ]
             }
         },
         methods: {
             choose(index){
-                this.footerNav[index].isSelected = true;
-                for(let i = 0; i < this.footerNav.length; i++){
-                    if(i != index){
-                        this.footerNav[i].isSelected = false;
-                    }
-                }
                 this.currentPage = this.footerNav[index].title;
                 this.active = this.footerNav[index].name;
                 this.$router.push(this.footerNav[index].url);
