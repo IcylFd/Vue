@@ -21,7 +21,7 @@
 
                 </li>
             </ul>
-            <div :class="['loading',{toBottom:isFinish}]">
+            <div v-show="!isFinish">
                 <img src="../../assets/img/loading.png" alt="">
             </div>
         </div>
