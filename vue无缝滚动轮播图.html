@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style:none;
+        }
+        .swipe{
+            height:400px;
+            width: 600px;
+            /*overflow: hidden;*/
+            position: relative;
+        }
+        .swipe ul{
+            width:3000px;
+            height:400px;
+        }
+        .swipe li{
+            float:left;
+        }
+        .bars{
+            position: absolute;
+            width:100%;
+            bottom:10px;
+        }
+        .bars span{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255,255,255,.3);
+            border:1px solid #c0c0c0;
+            border-radius: 50%;
+            text-align: center;
+            line-height:20px;
+            color:#fff;
+            font-size:12px;
+            margin-right: 5px;
+        }
+        .active{
+            background: #86A9DA !important;
+        }
+        .list-enter{
+            transform:translateX(-600px);
+        }
+        /*.list-enter-to{*/
+            /*transform: translateX(-600px);*/
+        /*}*/
+        .list-leave{
+            transform: translateX(-600px);
+        }
+        .list-leave-to{
+            transform: translateX(-600px);
+        }
+        .list-leave-active,.list-enter-active{
+            transition: all 2s ease;
+        }
+
+        /*.btn-leave-active,.btn-enter-active{*/
+            /*transition:all 1s ease;*/
+        /*},*/
+        /*.btn-enter,.btn-enter-to{*/
+            /*opacity: 0;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="swipe"  @mouseover="stop" @mouseleave="play">
+        <transition-group name="list" tag="ul">
+            <li v-for="(item,index) in imgList" :key="index+'il'">
+                <img :src="item" alt="">
+            </li>
+        </transition-group>
+        <div class="bars">
+            <!--<transition name="btn">-->
+            <span v-for="(item,index) in imgList" :key="index+'bl'" :class="{'active':mark==index}" @mouseover="onBar(index)">{{index+1}}</span>
+            <!--</transition>-->
+        </div>
+    </div>
+</div>
+
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            imgList:[
+                '../Vue/vuecli/project1/src/assets/img/a.jpg',
+                '../Vue/vuecli/project1/src/assets/img/b.jpg',
+                '../Vue/vuecli/project1/src/assets/img/c.jpg',
+                '../Vue/vuecli/project1/src/assets/img/d.jpg',
+                '../Vue/vuecli/project1/src/assets/img/e.jpg',
+            ],
+            mark:0,
+            timer:null
+
+        },
+        mounted(){
+            this.autoPlay()
+        },
+        methods:{
+            play () {
+                this.mark++;
+                if(this.mark == this.imgList.length){
+                    this.mark = 0;
+                }
+
+            },
+            autoPlay(){
+                this.timer = setInterval(this.play,2000);
+            },
+            stop(){
+                clearInterval(this.timer);
+            },
+            onBar(index){
+                this.mark = index;
+            }
+
+        }
+    });
+</script>
+</body>
+</html>
