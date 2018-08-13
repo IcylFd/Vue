@@ -21,8 +21,10 @@
 
                 </li>
             </ul>
-            <div v-show="!isFinish" class="loading">
-                <img src="../../assets/img/loading.png" alt="">
+            <div class="loading" v-show="!isFinish">
+                <div class="load-content">
+                    <img src="@/assets/img/loading.gif" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -34,9 +36,6 @@
         padding:0.2rem;
         display: flex;
     }
-    /*.container li>div{*/
-        /*width:0;*/
-    /*}*/
     .movieImg{
         width:1.5rem;
         height:2rem;
@@ -53,22 +52,21 @@
         font-weight:bold;
     }
     .loading{
-        height:1.5rem;
-        width:1.5rem;
-        border-radius: 0.3rem;
-        background: rgba(0,0,0,.4);
-        line-height:100%;
-        text-align: center;
-        display: none;
         position: fixed;
-        top:50%;
-        left:50%;
-        margin-left:-0.75rem;
-        margin-top:-0.75rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,.5);
     }
-    .loading img{
-        height: 0.8rem;
-        width: 0.8rem;
+    .load-content{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 1rem;
+        border-radius: .1rem;
+        background: rgba(255,255,255,.5);
     }
     .toBottom{
         display: block !important;
@@ -104,6 +102,7 @@
                 axios.get('https://api.myjson.com/bins/nsb9g')
                     .then((response) => {
                         this.dataList = this.dataList.concat(response.data.subjects);
+                        this.isFinish = true;
                     })
                     .catch((error) => {
 
@@ -120,7 +119,6 @@
                     if(this.isFinish){
                         this.getData();
                     }
-
 
                 }
             });
