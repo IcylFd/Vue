@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <ul>
-                <li v-for="(items,index) in dataList" :key="index+'dl'">
+                <li @click="$router.push({name:'moviedetails',params:{id:items.id}})" v-for="(items,index) in dataList" :key="index+'dl'">
                     <div><img class="movieImg" :src="items.images.small" alt=""></div>
                     <div class="movieInfo clearfix" >
                         <div class="movieTitle">{{items.title}}</div>
