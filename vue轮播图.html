@@ -4,23 +4,53 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-
+        *{
+            margin: 0;
+            padding: 0;
+            list-style:none;
+        }
+        .swipe{
+            height:400px;
+            width: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+        .swipe li{
+            position: absolute;
+        }
+        .bars{
+            position: absolute;
+            width:100%;
+            bottom:10px;
+        }
+        .bars span{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255,255,255,.3);
+            border:1px solid #c0c0c0;
+            border-radius: 50%;
+            text-align: center;
+            line-height:20px;
+            color:#fff;
+            font-size:12px;
+            margin-right: 5px;
+        }
+        .active{
+            background: #86A9DA !important;
+        }
     </style>
 </head>
 <body>
 <div id="app">
     <div class="swipe">
-        <div class="swipe-item">
-            <img src="../Vue/vuecli/project1/src/assets/img/a.jpg" alt="">
-        </div>
-        <div class="swipe-item">
-            <img src="../Vue/vuecli/project1/src/assets/img/b.jpg" alt="">
-        </div>
-        <div class="swipe-item">
-            <img src="../Vue/vuecli/project1/src/assets/img/c.jpg" alt="">
-        </div>
-        <div class="swipe-item">
-            <img src="../Vue/vuecli/project1/src/assets/img/d.jpg" alt="">
+        <ul>
+            <li v-for="(item,index) in imgList" :key="index+'il'" v-show="mark == index" @mouseover="stop" @mouseleave="autoPlay">
+                <img :src="item" alt="">
+            </li>
+        </ul>
+        <div class="bars">
+            <span v-for="(item,index) in imgList" :key="index+'bl'" :class="{'active':mark==index}" @mouseover="onBar(index)">{{index+1}}</span>
         </div>
     </div>
 </div>
@@ -30,12 +60,41 @@
     new Vue({
         el:"#app",
         data:{
+            imgList:[
+                '../Vue/vuecli/project1/src/assets/img/a.jpg',
+                '../Vue/vuecli/project1/src/assets/img/b.jpg',
+                '../Vue/vuecli/project1/src/assets/img/c.jpg',
+                '../Vue/vuecli/project1/src/assets/img/d.jpg',
+                '../Vue/vuecli/project1/src/assets/img/e.jpg',
+            ],
+            mark:0,
+            timer:null
             
         },
+        created(){
+            this.autoPlay()
+        },
         methods:{
+            play () {
+                this.mark++;
+                if(this.mark == this.imgList.length){
+                    this.mark = 0;
+                }
+
+            },
+            autoPlay(){
+                this.timer = setInterval(this.play,2000);
+            },
+            stop(){
+                clearInterval(this.timer);
+            },
+            onBar(index){
+                this.mark = index;
+                this.stop();
+            }
 
         }
-    })
+    });
 </script>
 </body>
 </html>
