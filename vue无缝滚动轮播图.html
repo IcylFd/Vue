@@ -12,7 +12,7 @@
         .swipe{
             height:400px;
             width: 600px;
-            /*overflow: hidden;*/
+            overflow: hidden;
             position: relative;
         }
         .swipe ul{
@@ -20,7 +20,7 @@
             height:400px;
         }
         .swipe li{
-            float:left;
+            position: absolute;
         }
         .bars{
             position: absolute;
@@ -43,21 +43,23 @@
         .active{
             background: #86A9DA !important;
         }
+
         .list-enter{
-            transform:translateX(-600px);
+            transform:translateX(100%);
         }
         /*.list-enter-to{*/
-            /*transform: translateX(-600px);*/
+            /*transform: translateX(0);*/
         /*}*/
-        .list-leave{
-            transform: translateX(-600px);
-        }
+        /*.list-leave{*/
+            /*transform: translateX(0);*/
+        /*}*/
         .list-leave-to{
-            transform: translateX(-600px);
+            transform: translateX(-100%);
         }
         .list-leave-active,.list-enter-active{
             transition: all 2s ease;
         }
+
 
         /*.btn-leave-active,.btn-enter-active{*/
             /*transition:all 1s ease;*/
@@ -69,9 +71,9 @@
 </head>
 <body>
 <div id="app">
-    <div class="swipe"  @mouseover="stop" @mouseleave="play">
+    <div class="swipe">
         <transition-group name="list" tag="ul">
-            <li v-for="(item,index) in imgList" :key="index+'il'">
+            <li v-for="(item,index) in imgList" :key="index+'il'" v-show="mark == index"  @mouseover="stop" @mouseleave="play">
                 <img :src="item" alt="">
             </li>
         </transition-group>
@@ -96,7 +98,8 @@
                 '../Vue/vuecli/project1/src/assets/img/e.jpg',
             ],
             mark:0,
-            timer:null
+            timer:null,
+            isDone:false,
 
         },
         mounted(){
@@ -117,7 +120,11 @@
                 clearInterval(this.timer);
             },
             onBar(index){
-                this.mark = index;
+//                if(this.isDone){
+                    this.mark = index;
+//                }
+                this.stop();
+
             }
 
         }

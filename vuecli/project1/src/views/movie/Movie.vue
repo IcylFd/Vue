@@ -68,13 +68,6 @@
         border-radius: .1rem;
         background: rgba(255,255,255,.5);
     }
-    .toBottom{
-        display: block !important;
-    }
-    .clearfix::after{
-        content:"";
-        clear:both;
-    }
 </style>
 
 <script>
