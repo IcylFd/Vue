@@ -30,14 +30,14 @@
                 photoList:[]
             }
         },
-        components:{
-
-        },
         methods:{
             getData(){
                 axios.get('./data/photodata.json')
                     .then((res)=>{
                         this.photoList = res.data.photoData;
+                    })
+                    .catch(()=>{
+
                     })
             },
             toDetail(){

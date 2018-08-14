@@ -2,7 +2,7 @@
     <div class="container">
         <div>
             <v-touch @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" @tap="onSwipeTap">
-                <img :src="this.$route.params.src" alt="">
+                <img :src="this.$route.params.src" alt="" v-show="">
             </v-touch>
         </div>
     </div>
