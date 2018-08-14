@@ -5,10 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    id:0
   },
   mutations: {
+    toDetail(state){
 
+    }
   },
   actions: {
 

@@ -1,30 +1,49 @@
 <template>
     <div class="container">
-        <div>
-            <v-touch @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" @tap="onSwipeTap">Swipe me!</v-touch>
-        </div>
+        <ul class='photos'>
+            <li v-for="(item,index) in photoList" :key="index+'pl'" @click="$router.push({name:'photodetail',params:{src:item.src}})">
+                <img :src="item.src" alt="">
+            </li>
+        </ul>
     </div>
 
 </template>
+<style scoped>
+    .photos li{
+        height:4.1rem;
+        width:50%;
+        float:left;
+    }
+</style>
 
 <script>
-    import Vue from 'vue';
-    import VueTouch from 'vue-touch';
-    Vue.use(VueTouch, {name: 'v-touch'});
+    import axios from 'axios';
+    import  {mapState,mapMutations,mapGetters,mapActions} from 'vuex';
+
     export default {
         created(){
             this.$emit('routerChange','photo');
+            this.getData();
+        },
+        data(){
+            return{
+                photoList:[]
+            }
+        },
+        components:{
+
         },
         methods:{
-            onSwipeLeft(){
-                console.log('zuohua')
+            getData(){
+                axios.get('./data/photodata.json')
+                    .then((res)=>{
+                        this.photoList = res.data.photoData;
+                    })
             },
-            onSwipeRight(){
-                console.log('youhua')
-            },
-            onSwipeTap(){
-                console.log('back');
+            toDetail(){
+
             }
+
         }
     }
 </script>
