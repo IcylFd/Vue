@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <ul class='photos'>
-            <li v-for="(item,index) in photoList" :key="index+'pl'" @click="$router.push({name:'photodetail',params:{src:item.src}})">
+            <li v-for="(item,index) in photoList" :key="index+'pl'" @click="goDetail(index)">
                 <img :src="item.src" alt="">
             </li>
         </ul>
@@ -18,7 +18,6 @@
 
 <script>
     import axios from 'axios';
-    import  {mapState,mapMutations,mapGetters,mapActions} from 'vuex';
 
     export default {
         created(){
@@ -26,7 +25,7 @@
             this.getData();
         },
         data(){
-            return{
+           return{
                 photoList:[]
             }
         },
@@ -40,8 +39,10 @@
 
                     })
             },
-            toDetail(){
-
+            goDetail(index){
+                this.$store.commit('changeIndex',index);
+                this.$store.commit('changeLength',this.photoList.length);
+                this.$router.push('/photodetail');
             }
 
         }

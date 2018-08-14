@@ -1,15 +1,14 @@
 <template>
-    <div class="container">
-        <div>
-            <v-touch @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" @tap="onSwipeTap">
-                <img :src="this.$route.params.src" alt="" v-show="">
-            </v-touch>
-        </div>
+    <div class="container" @click="swipetap">
+        aaa
+        <v-touch class='content' @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" @tap="onSwipeTap" :style='styleObj'></v-touch>
     </div>
 
 </template>
 <style>
-
+    .content{
+        background: #000;
+    }
 </style>
 
 <script>
@@ -19,28 +18,43 @@
     export default {
         created(){
             this.$emit('routerChange','photo');
+            if(this.$store.state.nowIndex == -1){
+                this.$router.push('/photo');
+            }
         },
         data(){
             return{
-                photoSrcList:[]
+                nowIn:this.$store.state.nowIndex+1,
+                thisLength:this.$store.state.listLength
             }
 
         },
-        mounted(){
-//                this.photoSrcList = this.photoSrcList.concat(this.$route.params.src);
-//                console.log(this.photoSrcList);
-
+        computed:{
+          styleObj(){
+            return{
+                background:`#000 url('./img/${this.nowIn}.jpg') no-repeat cover/contain`
+            }
+          }
         },
         methods:{
             onSwipeLeft(){
-//               this.route.push();
-                console.log('left');
+                this.nowIn++;
+                if(this.nowIn == this.thisLength + 1){
+                    this.nowIn = 1;
+                }
+
             },
             onSwipeRight(){
-                console.log('right');
+                this.nowIn--;
+                if(this.nowIn == 0){
+                    this.nowIn = this.thisLength;
+                }
             },
             onSwipeTap(){
-
+                this.$router.push("/photo");
+            },
+            swipetap(){
+                this.$router.push('/photo');
             }
         }
     }

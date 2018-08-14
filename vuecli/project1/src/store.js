@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    id:0
+    nowIndex:-1,
+    listLength:0
   },
   mutations: {
-    toDetail(state){
-
+    changeIndex(state,index){
+      state.nowIndex = index;
+    },
+    changeLength(state,length) {
+      state.length = length
     }
   },
   actions: {
