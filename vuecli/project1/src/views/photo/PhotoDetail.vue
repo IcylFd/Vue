@@ -1,13 +1,17 @@
 <template>
     <div class="container" @click="swipetap">
-        aaa
-        <v-touch class='content' @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" @tap="onSwipeTap" :style='styleObj'></v-touch>
+        <v-touch tag='div' class='content' @swipeleft="onSwipeLeft" @swiperight="onSwipeRight" :style='styleObj'>swipe me</v-touch>
     </div>
 
 </template>
-<style>
+<style scoped>
     .content{
         background: #000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
     }
 </style>
 
@@ -32,7 +36,7 @@
         computed:{
           styleObj(){
             return{
-                background:`#000 url('./img/${this.nowIn}.jpg') no-repeat cover/contain`
+                background:`#000 url('./img/${this.nowIn}.jpg') no-repeat center/contain`
             }
           }
         },

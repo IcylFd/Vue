@@ -42,7 +42,7 @@
             goDetail(index){
                 this.$store.commit('changeIndex',index);
                 this.$store.commit('changeLength',this.photoList.length);
-                this.$router.push('/photodetail');
+                this.$router.push('/photo/photodetail');
             }
 
         }

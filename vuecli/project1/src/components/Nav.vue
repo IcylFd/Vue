@@ -31,6 +31,7 @@
         width:100%;
         line-height:1rem;
         text-align: center;
+        z-index: 99;
     }
     header{
         top:0;

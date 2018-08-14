@@ -13,7 +13,7 @@ export default new Vuex.Store({
       state.nowIndex = index;
     },
     changeLength(state,length) {
-      state.length = length
+      state.listLength = length
     }
   },
   actions: {
