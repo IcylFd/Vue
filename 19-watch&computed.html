@@ -17,7 +17,7 @@
       data: {
         firstName: 'Foo',
         lastName: 'Bar',
-        // fullName: 'Foo Bar'
+        fullName: ''
       },
       watch: {//一个变量影响多个值
         firstName(val) {
@@ -27,11 +27,11 @@
           this.fullName = this.firstName + ' ' + val
         }
       },
-      computed:{//多个变量影响一个值
-        fullName(){
-          return this.firstName + this.lastName;
-        }
-      }
+//      computed:{//多个变量影响一个值
+//        fullName(){
+//          return this.firstName + this.lastName;
+//        }
+//      }
     })
   </script>
 </body>

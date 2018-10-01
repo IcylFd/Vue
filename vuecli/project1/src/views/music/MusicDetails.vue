@@ -33,7 +33,7 @@
                         this.dataList = res.data.musicData;
                         this.isLoaded = true;
                         for(let i = 0; i < res.data.musicData.length; i++){
-                            this.dataList[i].lrc = location.origin + "/" + res.data.musicData[i].lrc;
+                            this.dataList[i].lrc = location.origin + location.pathname + res.data.musicData[i].lrc;
                         }
                     })
                     .catch(()=>{
