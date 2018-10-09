@@ -211,14 +211,18 @@
         },
         methods:{
             clickMonthBar(that){
-                if(this.article.month == that){
-                    this.article.flag = true;
-                    console.log(1);
-                }else{
-                    this.article.flag = false;
-                    console.log(2);
+                console.log(this.article);
+                for(var i = 0; i < this.article.length; i++){
+                    if(this.article[i].month == that){
+                        this.article[i].flag = true;
+                        console.log(1);
+                    }else{
+                        this.article[i].flag = false;
+                        console.log(2);
 
+                    }
                 }
+
             }
         }
     }
