@@ -13,8 +13,8 @@
         <div class="content">
             <div class="monthBar">
                 <ul>
-                    <li v-for="(items,index) in monthlist" :key="index+'dl'" @click='clickMonthBar(items)'>
-                        {{items}}
+                    <li v-for="(items,index) in monthlist" :key="index+'dl'" class='monthselect' @click='clickMonthBar(items)'>
+                        {{items.date}}
                     </li>
                 </ul>
             </div>
@@ -84,7 +84,7 @@
         line-height: 80px;
         transition: all 0.6s ease;
     }
-    .monthBar ul li:hover{
+    .monthselect,.monthBar ul li:hover{
         background-color: #4b3e99;
         color:#f4f4f4;
     }
@@ -205,25 +205,44 @@
                     },
                 ],
                 monthlist:[
-                    'July 2018','June 2018','May 2018','April 2018'
+                    {
+                        date:'July 2018',
+                        isselect:true
+                    },
+                    {
+                        date:'June 2018',
+                        isselect:false
+                    },
+                    {
+                        date:'May 2018',
+                        isselect:false
+                    },
+                    {
+                        date:'April 2018',
+                        isselect:false
+                    }
                 ],
             }
         },
         methods:{
             clickMonthBar(that){
-                console.log(this.article);
+                that.isselect=true;
+                for(var j = 0; j < this.monthlist.length; j++){
+                    if(this.monthlist[j].date != that.date){
+                        this.monthlist[j].isselect = false;
+                    }
+                    console.log(this.monthlist[j].isselect);
+                }
                 for(var i = 0; i < this.article.length; i++){
-                    if(this.article[i].month == that){
+                    if(this.article[i].month == that.date){
                         this.article[i].flag = true;
-                        console.log(1);
                     }else{
                         this.article[i].flag = false;
-                        console.log(2);
-
                     }
                 }
 
             }
+
         }
     }
 </script>
