@@ -13,7 +13,7 @@
         <div class="content">
             <div class="monthBar">
                 <ul>
-                    <li v-for="(items,index) in monthlist" :key="index+'dl'" class='monthselect' @click='clickMonthBar(items)'>
+                    <li v-for="(items,index) in monthlist" :key="index+'dl'" class="monthBarItem" :class='[{monthselect:items.isselect}]' @click='clickMonthBar(items)'>
                         {{items.date}}
                     </li>
                 </ul>
@@ -73,7 +73,7 @@
     .monthBar ul{
         display: flex;
     }
-    .monthBar ul li{
+    .monthBarItem{
         flex:1;
         width:100px;
         height:80px;
@@ -87,6 +87,13 @@
     .monthselect,.monthBar ul li:hover{
         background-color: #4b3e99;
         color:#f4f4f4;
+        font-size: 20px;
+        font-weight: bold;
+        width:100px;
+        height:80px;
+        flex:1;
+        line-height: 80px;
+        transition: all 0.6s ease;
     }
     .separator{
         width: 100%;
